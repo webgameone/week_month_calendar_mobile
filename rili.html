@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- 不缓存 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- 不缓存end -->
+    <title>日历</title>
+
+    <script>
+      document.documentElement.style.fontSize = document.documentElement.clientWidth/7.5+'px';
+    </script>
+
+    <link href="./css/base.css" rel="stylesheet">
+    <link href="./css/schedule.css" rel="stylesheet">
+    <link href="./css/calendar.css" rel="stylesheet">
+
+    <script type="text/javascript" src="./js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="./js/calendar.js"></script>
+  </head>
+
+  <body>
+    <div id="yuyuemain">
+      <div id="indexApp">
+
+        <div id="dateTotalBox">
+          <div class="dateTotalBoxBG"></div>
+          <div class="dateTotalBox_header" id="funck">
+            <img src="./img/riliup.png" class="dateTotalBox_headerArr"/>
+          </div>
+
+          <!-- 全部的日历 -->
+          <div id="dateTotalBox_content"></div>
+          <!-- 全部的日历end -->
+        </div>
+
+    </div>
+  </div>
+
+    <script>
+      $(document).ready(function(){
+        var isShow = false;
+        //当前月活动的测试日期-请从服务器拉取数据
+        var currentMonth = ['20180202','20180205','20180210','20180215'];
+
+        //日历初始化
+        //设置完整的日历背景色
+        $('.dateTotalBoxBG').height($(window).height());
+
+        //创建日历对象
+        var calendar = new Calendar({id:'#dateTotalBox_content',class:'amd',currentMonth:currentMonth,callback:isCreated});
+
+        //获取当前年月
+        var date = new Date();//获取当前时间对象
+        var current_year = date.getFullYear();//获取年
+        var current_month = date.getMonth()+1;//获取月
+
+        //日历创建完成的回调....................................................
+        function isCreated()
+        {
+          //切换日历显示模式
+          $('.dateTotalBox_header').on('click',function(){
+            $('.calendar-ri').toggle();
+            $('.calendar-header').toggle();
+            $('.calendar-ri2').toggle();
+            isShow = !isShow;
+            //切换日历箭头图片
+            if(isShow)
+            {
+              $('.dateTotalBox_headerArr').attr('src','./img/rilidown.png');
+
+              $(document).on('touchmove',function(e){
+                e.preventDefault();
+              },false)
+            }
+            else
+            {
+              $('.dateTotalBox_headerArr').attr('src','./img/riliup.png');
+              $(document).off('touchmove');
+            }
+          });
+
+          //上月日历翻页........................................................
+          $('.cale-left').on('click',function(){
+            --current_month;
+            if(current_month==0){
+              current_year--;
+              current_month=12;
+            }
+
+
+            //更新上个月的活动日期数据-请从服务器拉取数据
+            var current_monthStr = current_month<10?'0'+current_month:current_month;
+            var currentMonth = [
+                  current_year+''+current_monthStr+'07',
+                  current_year+''+current_monthStr+'10',
+                  current_year+''+current_monthStr+'13',
+                  current_year+''+current_monthStr+'25',
+                  current_year+''+current_monthStr+'26',
+                  current_year+''+current_monthStr+'28',
+            ];
+
+            calendar.getLastMonthList(currentMonth);
+
+            //切换月份后要重新监听新的active类
+            listenDayClick();
+          });
+
+
+          //下月日历翻页..........................................................
+          $('.cale-right').on('click',function(){
+            ++current_month;
+            if(current_month==13){
+              current_year++;
+              current_month=1;
+            }
+
+            //更新上个月的活动日期数据-请从服务器拉取数据
+            var current_monthStr = current_month<10?'0'+current_month:current_month;
+            var currentMonth = [
+                  current_year+''+current_monthStr+'02',
+                  current_year+''+current_monthStr+'05',
+                  current_year+''+current_monthStr+'11',
+                  current_year+''+current_monthStr+'16',
+                  current_year+''+current_monthStr+'19',
+                  current_year+''+current_monthStr+'24',
+            ];
+
+            calendar.getNextMonthList(currentMonth);
+
+            //切换月份后要重新监听新的active类
+            listenDayClick();
+          });
+
+          listenDayClick();
+
+          //点击完整月份日历的活动日期,周日历也将同时变化
+          function listenDayClick(){
+            $('.active').on('click',function(ev){
+              var dataArr = this.currentMonthList;
+              var currentDay = parseInt(ev.target.innerHTML);
+
+              //点击了月份的天数后,一周的数据也要开始变化
+              calendar.clickActiveDayFn(current_year,current_month,currentDay);
+
+              //隐藏灰色背景和全部的日历
+              $('.calendar-ri').toggle();
+              $('.calendar-header').toggle();
+              $('.calendar-ri2').toggle();
+              isShow = !isShow;
+            })
+          }
+        }
+      });
+    </script>
+
+  </body>
+</html>

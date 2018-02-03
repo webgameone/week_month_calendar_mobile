@@ -1,0 +1,49 @@
+body{
+    background-color: #eeeced;
+}
+#main{
+  height:100%;
+}
+#indexApp{
+  width:100%;
+}
+/*日历.........................................*/
+#dateTotalBox{
+    position:fixed;
+    width:100%;
+    z-index: 9999;
+}
+.dateTotalBoxBG{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    background-color:rgba(0,0,0,0.7);
+}
+.dateTotalBox_header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:0.59rem;
+    border-bottom:1px solid #9ddbfe;
+    background-color:#72cefe
+}
+.dateTotalBox_headerArr{
+    position:absolute;
+    display: block;
+    width:0.32rem;
+    height:0.16rem;
+    top:50%;
+    left:50%;
+    margin-left: -0.16rem;
+    margin-top: -0.08rem;
+}
+#dateCurrentBox_content{
+  font-size:0.3rem;
+  width:100%;
+  text-align:center;
+  background:url('./images/index/riliBG.png') repeat-x;
+  background-size: 0.08rem cover;
+}
+/*日历.........................................end*/

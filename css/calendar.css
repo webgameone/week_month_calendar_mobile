@@ -1,0 +1,101 @@
+.clearfix{
+  *zoom:1;
+}
+.clearfix:after{
+  height:0;
+  clear:both;
+  visibility: hidden;
+  content:'';
+  display: block;
+}
+.calendar{
+  font-size:0.3rem;
+  width:100%;
+  text-align:center;
+  background:url(../img/riliBG.png) repeat-x;
+  background-size: 0.08rem cover;
+}
+.calendar-header{
+  height:1rem;
+  line-height: 1rem;
+}
+.calendar input{
+  width:60px;
+  height: 30px;
+  outline: none;
+  font-size: 18px;
+  border-radius:5px;
+  border-width:1px;
+  text-align:center;
+}
+.calendar .datetitle{
+  font-size:0.3rem;
+  color:#ffffff;
+}
+.calendar .month{
+  width:30px;
+}
+.cale-left{
+  float:left;
+  width:50px;
+  color:#fff;
+  font-size:0.3rem;
+}
+.cale-right{
+  float:right;
+  width:50px;
+  color:#fff;
+  font-size:0.3rem;
+}
+.cale-que{
+  float:left;
+  width:50px;
+  cursor:pointer;
+}
+.cale-com{
+  float:right;
+  width:1rem;
+  cursor:pointer;
+}
+.cale-nav{
+  height:0.6rem;
+  line-height: 0.6rem;
+}
+.cale-nav span{
+  box-sizing: border-box;
+  width:14.2857%;
+  float:left;
+  color:#ffffff;
+}
+.calendar-ri span{
+  box-sizing: border-box;
+  width:14.2857%;
+  float:left;
+  height:0.72rem;
+  line-height: 0.72rem;
+  color:#ffffff;
+}
+.calendar-ri span.active{
+  background:url(../img/riliBG2.png) no-repeat center center;
+  background-size: 0.57rem 0.57rem;
+  border-radius:50%;
+  color:#000000;
+}
+
+.calendar-ri2 span{
+  box-sizing: border-box;
+  width:14.2857%;
+  float:left;
+  height:0.72rem;
+  line-height: 0.72rem;
+  color:#ffffff;
+}
+.calendar-ri2 span.active2{
+  background:url(../img/riliBG2.png) no-repeat center center;
+  background-size: 0.57rem 0.57rem;
+  border-radius:50%;
+  color:#000000;
+}
+.calendar-ri2 span.active3{
+  font-weight:600;
+}
